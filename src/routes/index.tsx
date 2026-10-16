@@ -287,7 +287,7 @@ function App() {
             <MenuItem>Download &amp; Add to Playlist <ChevronRight className="ml-auto h-3 w-3" /></MenuItem>
             <div className="chrome absolute left-full top-0 hidden w-48 rounded-md py-1 group-hover:block">
               {Object.keys(playlists).map((p) => (
-                <MenuItem key={p} onClick={() => { startDl(menu.t); setPlaylists((pl) => ({ ...pl, [p]: (pl[p] ?? []).includes(menu.t.id) ? pl[p] : [...pl[p], menu.t.id] })); flash(`Added to ${p}`); setMenu(null); }}>♪ {p}</MenuItem>
+                <MenuItem key={p} onClick={() => { startDl(menu.t); setPlaylists((pl) => { const cur = pl[p] ?? []; return { ...pl, [p]: cur.includes(menu.t.id) ? cur : [...cur, menu.t.id] }; }); flash(`Added to ${p}`); setMenu(null); }}>♪ {p}</MenuItem>
               ))}
             </div>
           </div>
