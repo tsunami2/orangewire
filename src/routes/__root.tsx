@@ -78,10 +78,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "LimeAmp — Retro P2P Music Player" },
+      { title: "OrangeWire — Retro P2P Music Player" },
       { name: "description", content: "A glossy 2000s-style music player and P2P browser." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "LimeAmp — Retro P2P Music Player" },
+      { property: "og:title", content: "OrangeWire — Retro P2P Music Player" },
       { property: "og:description", content: "A glossy 2000s-style music player and P2P browser." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
