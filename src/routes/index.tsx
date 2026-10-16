@@ -1,3 +1,4 @@
+import logo from "@/assets/orangewire-logo.png";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import {
@@ -8,9 +9,9 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LimeAmp — Retro P2P Music Player" },
+      { title: "OrangeWire — Retro P2P Music Player" },
       { name: "description", content: "Browse, download and play tracks in a glossy 2000s-style P2P music player." },
-      { property: "og:title", content: "LimeAmp — Retro P2P Music Player" },
+      { property: "og:title", content: "OrangeWire — Retro P2P Music Player" },
       { property: "og:description", content: "Browse, download and play tracks in a glossy 2000s-style P2P music player." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -119,11 +120,10 @@ function App() {
     <div className="flex min-h-screen items-center justify-center p-2 md:p-6">
       <div className="chrome flex h-[calc(100vh-1rem)] w-full max-w-[1500px] flex-col overflow-hidden rounded-xl md:h-[calc(100vh-3rem)]">
         {/* Title bar */}
-        <div className="brushed flex h-9 shrink-0 items-center justify-between border-b border-black/60 px-3">
+        <div className="titlebar flex h-8 shrink-0 items-center justify-between px-2">
           <div className="flex items-center gap-2">
-            <div className="gloss-lime grid h-5 w-5 place-items-center rounded-full"><Zap className="h-3 w-3" /></div>
-            <span className="font-display text-sm tracking-wider text-[color:var(--lime)]">LimeAmp</span>
-            <span className="hidden text-xs text-[color:var(--ink-dim)] sm:inline">— Enabling Open Music Sharing</span>
+            <img src={logo} alt="" className="h-5 w-5" />
+            <span className="text-sm font-bold">OrangeWire: Enabling Open Information Sharing</span>
           </div>
           <div className="flex gap-1.5">
             <button className="gloss-btn grid h-5 w-6 place-items-center rounded" aria-label="Minimize"><Minus className="h-3 w-3" /></button>
@@ -132,9 +132,13 @@ function App() {
           </div>
         </div>
 
+        <div className="brushed flex shrink-0 items-center justify-between border-b border-black/20 px-3 py-1 text-xs">
+          <div className="flex gap-4">{["File", "View", "Navigation", "Resources", "Tools", "Filters", "Help"].map((m) => <span key={m} className="cursor-default hover:underline">{m}</span>)}</div>
+          <div className="flex items-center gap-2"><img src={logo} alt="OrangeWire logo" className="h-8 w-8" /><span className="font-display text-lg italic tracking-wide text-[color:var(--lime-deep)]">OrangeWire PRO</span></div>
+        </div>
         <div className="flex min-h-0 flex-1">
           {/* Sidebar */}
-          <aside className="brushed hidden w-56 shrink-0 flex-col gap-1 border-r border-black/60 p-3 md:flex">
+          <aside className="brushed hidden w-56 shrink-0 flex-col gap-1 border-r border-black/20 p-3 md:flex">
             <p className="mb-1 px-2 text-[10px] uppercase tracking-widest text-[color:var(--ink-dim)]">Library</p>
             {VIEWS.map((v) => {
               const active = view === v.id;
@@ -144,7 +148,7 @@ function App() {
                     <v.icon className="h-4 w-4" />{v.label}
                   </button>
                   {v.id === "playlists" && (
-                    <div className="ml-3 mt-1 space-y-0.5 border-l border-white/10 pl-2">
+                    <div className="ml-3 mt-1 space-y-0.5 border-l border-black/10 pl-2">
                       {Object.keys(playlists).map((p) => (
                         <button key={p} onClick={() => { setOpenList(p); setView("playlists"); }} className={`block w-full truncate rounded px-2 py-1 text-left text-xs hover:text-[color:var(--lime)] ${view === "playlists" && openList === p ? "text-[color:var(--lime)]" : "text-[color:var(--ink-dim)]"}`}>♪ {p}</button>
                       ))}
@@ -162,14 +166,14 @@ function App() {
 
           {/* Main */}
           <main className="flex min-w-0 flex-1 flex-col bg-[color:var(--metal-3)]">
-            <div className="border-b border-black/60 p-3">
+            <div className="border-b border-black/20 p-3">
               <div className="flex md:hidden mb-2 gap-1 overflow-x-auto">
                 {VIEWS.map((v) => <button key={v.id} onClick={() => setView(v.id)} className={`shrink-0 rounded px-2 py-1 text-xs ${view === v.id ? "gloss-lime" : "gloss-btn"}`}>{v.label}</button>)}
               </div>
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[color:var(--lime)]" />
                 <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search tracks, artist, MP3s..."
-                  className="w-full rounded-full border border-[color:var(--lime-deep)] bg-black/50 py-2.5 pl-11 pr-4 text-sm outline-none shadow-[inset_0_2px_6px_oklch(0_0_0/0.7),0_0_12px_var(--lime-glow)] placeholder:text-[color:var(--ink-dim)] focus:shadow-[inset_0_2px_6px_oklch(0_0_0/0.7),0_0_22px_var(--lime-glow)]" />
+                  className="w-full rounded-full border border-[color:var(--lime-deep)] bg-[color:var(--metal-3)] py-2.5 pl-11 pr-4 text-sm outline-none shadow-[inset_0_1px_3px_oklch(0_0_0/0.2),0_0_12px_var(--lime-glow)] placeholder:text-[color:var(--ink-dim)] focus:shadow-[inset_0_1px_3px_oklch(0_0_0/0.2),0_0_22px_var(--lime-glow)]" />
               </div>
               {view === "search" && (
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -209,7 +213,7 @@ function App() {
                   <tbody>
                     {rows.map((t, i) => (
                       <tr key={t.id} onContextMenu={(e) => onRow(e, t)} onDoubleClick={() => { setNowId(t.id); setPos(0); setPlaying(true); }}
-                        className={`cursor-default ${nowId === t.id ? "bg-[color:var(--lime)]/15 text-[color:var(--lime)]" : i % 2 ? "bg-white/[0.03]" : ""} hover:bg-[color:var(--lime)]/10`}>
+                        className={`cursor-default ${nowId === t.id ? "bg-[color:var(--lime)]/20 font-bold" : i % 2 ? "bg-[color:var(--metal-1)]" : ""} hover:bg-[color:var(--lime)]/10`}>
                         <td className="w-8 px-2 py-1.5">{t.status === "local" ? <CheckCircle2 className="h-3.5 w-3.5 text-[color:var(--lime)]" /> : t.status === "liked" ? <Heart className="h-3.5 w-3.5 fill-current text-[color:var(--lime)]" /> : <Download className="h-3.5 w-3.5 text-[color:var(--ink-dim)]" />}</td>
                         <td className="px-2 py-1.5 font-medium">{t.title}</td>
                         <td className="px-2 py-1.5">{t.artist}</td>
@@ -229,13 +233,20 @@ function App() {
                 </table>
               )}
             </div>
+            {view !== "nodes" && (
+              <div className="brushed flex items-center justify-center gap-8 border-t border-black/20 py-2 text-xs">
+                <button onClick={() => rows[0] && startDl(rows[0])} className="flex flex-col items-center gap-1 hover:text-[color:var(--lime-deep)]"><Download className="h-6 w-6 text-[color:var(--lime-deep)]" />Download</button>
+                <button onClick={() => flash("Browsing host…")} className="flex flex-col items-center gap-1 hover:text-[color:var(--lime-deep)]"><Network className="h-6 w-6 text-[color:var(--xp-2)]" />Browse Host</button>
+                <button onClick={() => { setQuery(""); flash("Search stopped"); }} className="flex flex-col items-center gap-1 hover:text-[color:var(--lime-deep)]"><X className="h-6 w-6 text-[color:var(--danger)]" />Stop Search</button>
+              </div>
+            )}
           </main>
         </div>
 
         {/* Bottom dock */}
-        <footer className="brushed grid shrink-0 grid-cols-1 gap-3 border-t border-black/60 p-3 lg:grid-cols-[1fr_1.3fr_1fr]">
+        <footer className="brushed grid shrink-0 grid-cols-1 gap-3 border-t border-black/20 p-3 lg:grid-cols-[1fr_1.3fr_1fr]">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="gloss-lime grid h-14 w-14 shrink-0 place-items-center rounded-lg"><Music className="h-6 w-6" /></div>
+            <img src={logo} alt="" className="glass-panel h-14 w-14 shrink-0 rounded-lg p-1" />
             <div className="min-w-0">
               <p className="truncate text-sm font-bold">{now.title}</p>
               <p className="truncate text-xs text-[color:var(--ink-dim)]">{now.artist}</p>
@@ -291,7 +302,7 @@ function App() {
               ))}
             </div>
           </div>
-          <div className="my-1 border-t border-white/10" />
+          <div className="my-1 border-t border-black/10" />
           <MenuItem onClick={() => { flash(`Node ${NODES[menu.t.id % NODES.length]!.name} · ${NODES[menu.t.id % NODES.length]!.ip}`); setMenu(null); }}>View Node Details</MenuItem>
         </div>
       )}
