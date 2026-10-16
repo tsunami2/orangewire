@@ -287,12 +287,12 @@ function App() {
             <MenuItem>Download &amp; Add to Playlist <ChevronRight className="ml-auto h-3 w-3" /></MenuItem>
             <div className="chrome absolute left-full top-0 hidden w-48 rounded-md py-1 group-hover:block">
               {Object.keys(playlists).map((p) => (
-                <MenuItem key={p} onClick={() => { startDl(menu.t); setPlaylists((pl) => ({ ...pl, [p]: pl[p].includes(menu.t.id) ? pl[p] : [...pl[p], menu.t.id] })); flash(`Added to ${p}`); setMenu(null); }}>♪ {p}</MenuItem>
+                <MenuItem key={p} onClick={() => { startDl(menu.t); setPlaylists((pl) => ({ ...pl, [p]: (pl[p] ?? []).includes(menu.t.id) ? pl[p] : [...pl[p], menu.t.id] })); flash(`Added to ${p}`); setMenu(null); }}>♪ {p}</MenuItem>
               ))}
             </div>
           </div>
           <div className="my-1 border-t border-white/10" />
-          <MenuItem onClick={() => { flash(`Node ${NODES[menu.t.id % NODES.length].name} · ${NODES[menu.t.id % NODES.length].ip}`); setMenu(null); }}>View Node Details</MenuItem>
+          <MenuItem onClick={() => { flash(`Node ${NODES[menu.t.id % NODES.length]!.name} · ${NODES[menu.t.id % NODES.length]!.ip}`); setMenu(null); }}>View Node Details</MenuItem>
         </div>
       )}
 
@@ -304,5 +304,5 @@ function App() {
 function MenuItem({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) {
   return <button onClick={onClick} className="flex w-full items-center px-3 py-1.5 text-left hover:bg-[color:var(--lime)] hover:text-[color:var(--metal-3)]">{children}</button>;
 }
-function toSec(d: string) { const [m, s] = d.split(":").map(Number); return m * 60 + (s || 0); }
+function toSec(d: string) { const [m, s] = d.split(":").map(Number); return (m ?? 0) * 60 + (s || 0); }
 function fmt(s: number) { return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`; }
