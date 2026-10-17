@@ -1,8 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 
 async function slskd(path: string, init?: RequestInit) {
-  const base = process.env.SLSKD_URL;
-  const key = process.env.SLSKD_API_KEY;
+  const base = process.env['SLSKD_URL'];
+  const key = process.env['SLSKD_API_KEY'];
   if (!base || !key) throw new Error("slskd is not configured yet.");
   const res = await fetch(`${base.replace(/\/$/, "")}/api/v0${path}`, {
     ...init,

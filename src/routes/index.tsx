@@ -1,3 +1,5 @@
+import { MobileOrangeWire } from "@/components/MobileOrangeWire";
+import { Smartphone, Monitor } from "lucide-react";
 import logo from "@/assets/orangewire-logo.png";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type MouseEvent } from "react";
@@ -55,6 +57,18 @@ const NODES = [
 ];
 
 function App() {
+  const [mobile, setMobile] = useState(false);
+  return (
+    <>
+      <button onClick={() => setMobile(!mobile)} className="gloss-lime fixed right-3 top-3 z-[60] flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold">
+        {mobile ? <Monitor className="h-4 w-4" /> : <Smartphone className="h-4 w-4" />}{mobile ? "Desktop version" : "Mobile version"}
+      </button>
+      {mobile ? <div className="flex min-h-screen items-center justify-center p-4"><MobileOrangeWire /></div> : <Desktop />}
+    </>
+  );
+}
+
+function Desktop() {
   const [view, setView] = useState<View>("search");
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState("All Types");
